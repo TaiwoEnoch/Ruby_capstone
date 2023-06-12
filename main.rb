@@ -1,5 +1,11 @@
 class Main
-  puts 'Welcome to our catalog app'
+  def initialize
+    puts '********-------------------------********'
+    puts '      Welcome to our catalog app      '
+    puts '********-------------------------********'
+    puts
+  end
+
   def select_option
     puts 'Please choose an option by entering a number:'
     puts '1). List all books'
@@ -16,4 +22,88 @@ class Main
     puts '12). Add a game'
     puts '13). Exit'
   end
+
+  def run
+    loop do
+      select_option
+      choice = gets.chomp.to_i
+
+      handle_choice(choice)
+
+
+      puts
+    end
+  end
+
+  def handle_choice(choice)
+    actions = {
+      1 => method(:list_books), 2 => method(:list_music_albums), 3 => method(:list_movies),
+      4 => method(:list_games), 5 => method(:list_genres), 6 => method(:list_labels),
+      7 => method(:list_authors), 8 => method(:list_sources), 9 => method(:add_book),
+      10 => method(:add_music_album), 11 => method(:add_movie), 12 => method(:add_game),
+      13 => method(:exit_app)
+    }
+    action = actions[choice]
+    if action
+      action.call
+    else
+      puts 'Invalid choice. Please try again.'
+    end
+  end
+
+  def list_books
+    puts 'Listing all books...'
+  end
+
+  def list_music_albums
+    puts 'Listing all music albums...'
+  end
+
+  def list_movies
+    puts 'Listing all movies...'
+  end
+
+  def list_games
+    puts 'Listing all games...'
+  end
+
+  def list_genres
+    puts 'Listing all genres...'
+  end
+
+  def list_labels
+    puts 'Listing all labels...'
+  end
+
+  def list_authors
+    puts 'Listing all authors...'
+  end
+
+  def list_sources
+    puts 'Listing all sources...'
+  end
+
+  def add_book
+    puts 'Adding a book...'
+  end
+
+  def add_music_album
+    puts 'Adding a music album...'
+  end
+
+  def add_movie
+    puts 'Adding a movie...'
+  end
+
+  def add_game
+    puts 'Adding a game...'
+  end
+
+  def exit_app
+    puts 'Exiting the app. Goodbye!'
+    exit
+  end
 end
+
+app = Main.new
+app.run
