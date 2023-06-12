@@ -2,7 +2,7 @@ class Item
   attr_reader :id
   attr_accessor :genre, :author, :source, :label, :publish_date, :archived
 
-  def initialize(genre, author, source, label, publish_date)
+  def initialize(genre, author, source, label, _publish_date)
     @id = Random.rand(1..1000)
     @genre = genre
     @author = author
@@ -16,6 +16,4 @@ class Item
     present_date = Time.now
     present_date - publish_date > 10
   end
-
-  
 end
