@@ -1,4 +1,4 @@
-class main
+class Main
   puts 'Welcome to our catalog app'
   def select_option
     puts 'Please choose an option by entering a number:'
@@ -16,4 +16,4 @@ class main
     puts '12). Add a game'
     puts '13). Exit'
   end
-main
+end
