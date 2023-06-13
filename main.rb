@@ -35,33 +35,16 @@ class Main
   end
 
   def handle_choice(choice)
-    case choice
-    when 1
-      list_books
-    when 2
-      list_music_albums
-    when 3
-      list_movies
-    when 4
-      list_games
-    when 5
-      list_genres
-    when 6
-      list_labels
-    when 7
-      list_authors
-    when 8
-      list_sources
-    when 9
-      add_book
-    when 10
-      add_music_album
-    when 11
-      add_movie
-    when 12
-      add_game
-    when 13
-      exit_app
+    actions = {
+      1 => method(:list_books), 2 => method(:list_music_albums), 3 => method(:list_movies),
+      4 => method(:list_games), 5 => method(:list_genres), 6 => method(:list_labels),
+      7 => method(:list_authors), 8 => method(:list_sources), 9 => method(:add_book),
+      10 => method(:add_music_album), 11 => method(:add_movie), 12 => method(:add_game),
+      13 => method(:exit_app)
+    }
+    action = actions[choice]
+    if action
+      action.call
     else
       puts 'Invalid choice. Please try again.'
     end
