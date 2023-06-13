@@ -1,3 +1,5 @@
+require_relative 'Classes/game_list'
+
 class Main
   def initialize
     puts '********-------------------------********'
@@ -65,6 +67,8 @@ class Main
 
   def list_games
     puts 'Listing all games...'
+    game_list = GameList.new('./data/games.json', './data/authors.json')
+    game_list.list_all_games
   end
 
   def list_genres
@@ -77,6 +81,8 @@ class Main
 
   def list_authors
     puts 'Listing all authors...'
+    game_list = GameList.new('./data/games.json', './data/authors.json')
+    game_list.list_all_authors
   end
 
   def list_sources
@@ -97,6 +103,9 @@ class Main
 
   def add_game
     puts 'Adding a game...'
+    game_list = GameList.new('./data/games.json', './data/authors.json')
+
+    game_list.add_game
   end
 
   def exit_app
