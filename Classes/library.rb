@@ -9,13 +9,13 @@ class Library
   end
 
   def load_data
-    @games = load_json_data('games.json', Game)
-    @authors = load_json_data('authors.json', Author)
+    @games = load_json_data('../data/games.json', Game)
+    @authors = load_json_data('../data/authors.json', Author)
   end
 
   def save_data
-    save_json_data('games.json', @games)
-    save_json_data('authors.json', @authors)
+    save_json_data('../data/games.json', @games)
+    save_json_data('../data/authors.json', authors)
   end
 
   def list_games
