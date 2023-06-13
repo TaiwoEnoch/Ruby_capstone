@@ -16,4 +16,10 @@ class Item
     present_date = Time.now
     present_date - publish_date > 10
   end
+
+  def move_to_archive
+    if can_be_archived?
+      @archived = true
+    end
+  end
 end
