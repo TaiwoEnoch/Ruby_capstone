@@ -20,5 +20,16 @@
       "first_name": "Bruh",
       "last_name": "What"
     }
+  },
+  {
+    "id": 227,
+    "publish_date": null,
+    "multiplayer": true,
+    "last_played_at": "2003-12-21",
+    "label": null,
+    "author": {
+      "first_name": "Stephen",
+      "last_name": "King"
+    }
   }
 ]
