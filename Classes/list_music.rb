@@ -37,7 +37,7 @@ class MusicList
     puts 'Album created successfully'
     puts ''
 
-    print 'Add genre (Pop, Rock, HipHop): '
+    print 'Add genre (Pop, Rock, HipHop, Comedy, Thriller): '
     name = gets.chomp
 
     genre = @genres.find { |g| g.name == name }
