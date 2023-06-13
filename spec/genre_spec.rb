@@ -1,10 +1,9 @@
 require_relative '../Classes/genre'
 require_relative '../Classes/item'
-require 'rspec'
 
 describe Genre do
   test_genre = Genre.new('test')
-  item = Item.new('Title', 'Author', 'Description', '2008/05/05', test_genre)
+  item = Item.new('Title', 'Author', 'Description', '2000/03/24', test_genre)
 
   it 'test_genre should return "test" as its name' do
     expect(test_genre.name).to eq('test')
