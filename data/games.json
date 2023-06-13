@@ -1,14 +1,24 @@
 [
   {
+    "id": 919,
+    "publish_date": null,
     "multiplayer": true,
-    "last_played_at": "2004-12-02"
+    "last_played_at": "2020-12-23",
+    "label": null,
+    "author": {
+      "first_name": "Rishi",
+      "last_name": "Mishra"
+    }
   },
   {
-    "multiplayer": true,
-    "last_played_at": "2004-12-23"
-  },
-  {
-    "multiplayer": true,
-    "last_played_at": "2004-12-23"
+    "id": 243,
+    "publish_date": null,
+    "multiplayer": false,
+    "last_played_at": "2020-04-07",
+    "label": null,
+    "author": {
+      "first_name": "Bruh",
+      "last_name": "What"
+    }
   }
 ]

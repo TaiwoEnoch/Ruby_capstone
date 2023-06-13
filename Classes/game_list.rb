@@ -39,45 +39,79 @@ class GameList
     multiplayer = prompt_multiplayer
     print 'Last played at (YYYY-MM-DD): '
     last_played_at = gets.chomp
-    game = Game.new(multiplayer, last_played_at)
+
+    author = select_author
+    game = Game.new(multiplayer, last_played_at, nil, author, nil)
     games << game
     puts 'Game added successfully'
     puts ''
 
-    author = select_author
     author.add_item(game)
-    authors << author
+    save_authors
     save
   end
 
   def select_author
-    puts 'Select an option:'
-    puts '1. Random famous author'
-    puts '2. Create a new author'
-    print 'Enter your choice: '
-    choice = gets.chomp.to_i
+    if authors.empty?
+      puts 'No authors added. Creating a new author...'
+      author = create_author
+      authors << author
+      save_authors
+    else
+      puts 'Choose an option:'
+      puts '1. Select an existing author'
+      puts '2. Create a new author'
+      print 'Enter your choice: '
+      choice = gets.chomp.to_i
 
-    case choice
-    when 1
-      generate_famous_author
-    when 2
+      case choice
+      when 1
+        author = select_existing_author
+      when 2
+        author = create_author
+        authors << author
+        save_authors
+      else
+        puts 'Invalid choice. Creating a new author...'
+        author = create_author
+        authors << author
+        save_authors
+      end
+    end
+
+    author
+  end
+
+  def select_existing_author
+    unique_authors = authors.uniq { |author| "#{author.first_name} #{author.last_name}" }
+
+    if unique_authors.empty?
+      puts 'No authors available. Creating a new author...'
       create_author
     else
-      puts 'Invalid choice. Creating a new author by default.'
-      create_author
+      puts 'Select an author:'
+      unique_authors.each_with_index { |author, index| puts "#{index + 1}. #{author.first_name} #{author.last_name}" }
+      print 'Enter the number of the author: '
+      author_index = gets.chomp.to_i - 1
+
+      if author_index.between?(0, unique_authors.size - 1)
+        unique_authors[author_index]
+      else
+        puts 'Invalid author selection. Creating a new author...'
+        create_author
+      end
     end
   end
 
-  def generate_famous_author
-    famous_authors = [
-      { first_name: 'Stephen', last_name: 'King' },
-      { first_name: 'J.K.', last_name: 'Rowling' },
-      { first_name: 'George', last_name: 'Orwell' },
-      { first_name: 'Agatha', last_name: 'Christie' }
-    ]
+  def save_authors
+    author_data = authors.map do |author|
+      {
+        first_name: author.first_name,
+        last_name: author.last_name
+      }
+    end
 
-    author_info = famous_authors.sample
-    Author.new(author_info[:first_name], author_info[:last_name])
+    File.write(@authors_file_path, JSON.pretty_generate(author_data))
   end
 
   def create_author
@@ -102,24 +136,60 @@ class GameList
 
   def save
     games_data = games.map do |game|
-      { multiplayer: game.multiplayer, last_played_at: game.last_played_at }
-    end
-    authors_data = authors.map do |author|
-      { first_name: author.first_name, last_name: author.last_name }
+      {
+        id: game.id,
+        publish_date: game.publish_date,
+        multiplayer: game.multiplayer,
+        last_played_at: game.last_played_at,
+        label: game.label,
+        author: {
+          first_name: game.author.first_name,
+          last_name: game.author.last_name
+        }
+      }
     end
 
-    File.write(@games_file_path, JSON.pretty_generate(games_data))
-    File.write(@authors_file_path, JSON.pretty_generate(authors_data))
+    existing_data = []
+    existing_data = JSON.parse(File.read(@games_file_path)) if File.exist?(@games_file_path)
+
+    new_data = existing_data + games_data
+
+    File.write(@games_file_path, JSON.pretty_generate(new_data))
   end
 
   def recover_data
     return unless File.exist?(@games_file_path)
 
     game_store = JSON.parse(File.read(@games_file_path))
-    game_load = game_store.map { |game| Game.new(game['multiplayer'], game['last_played_at']) }
-    games.concat(game_load) unless game_load.empty?
+    game_load = game_store.map do |game|
+      author_data = game['author']
+      if author_data.nil?
+        puts 'Author data missing for a game. Skipping game.'
+        next
+      end
+      author = find_author(author_data['first_name'], author_data['last_name'])
+      if author
+        existing_game = find_game(game['id'])
+        if existing_game
+          puts "Game with ID '#{game['id']}' already exists. Skipping game."
+          next
+        end
+        Game.new(game['multiplayer'], game['last_played_at'], game['id'], author, game['publish_date'])
+      else
+        puts "Author '#{author_data['first_name']} #{author_data['last_name']}' not found. Skipping game."
+      end
+    end
+    games.concat(game_load.compact) unless game_load.empty?
   rescue JSON::ParserError => e
     puts "Error reading games data: #{e.message}"
+  end
+
+  def find_game(id)
+    games.find { |game| game.id == id }
+  end
+
+  def find_author(first_name, last_name)
+    authors.find { |author| author.first_name == first_name && author.last_name == last_name }
   end
 
   def recover_authors
