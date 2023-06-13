@@ -30,7 +30,6 @@ class Main
 
       handle_choice(choice)
 
-
       puts
     end
   end
