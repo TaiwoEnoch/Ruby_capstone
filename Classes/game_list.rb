@@ -88,22 +88,22 @@ class GameList
   def create_game_from_json(game)
     author_data = game['author']
     if author_data.nil?
-      puts 'Author data missing for a game. Skipping game.'
+      author = nil
+    else
+      author = find_author(author_data['first_name'], author_data['last_name'])
+      if author.nil?
+        puts "Author '#{author_data['first_name']} #{author_data['last_name']}' not found. Skipping game."
+        return nil
+      end
+    end
+
+    existing_game = find_game(game['id'])
+    if existing_game
+      puts "Game with ID '#{game['id']}' already exists. Skipping game."
       return nil
     end
 
-    author = find_author(author_data['first_name'], author_data['last_name'])
-    if author
-      existing_game = find_game(game['id'])
-      if existing_game
-        puts "Game with ID '#{game['id']}' already exists. Skipping game."
-        return nil
-      end
-      Game.new(game['multiplayer'], game['last_played_at'], game['id'], author, game['publish_date'])
-    else
-      puts "Author '#{author_data['first_name']} #{author_data['last_name']}' not found. Skipping game."
-      nil
-    end
+    Game.new(game['multiplayer'], game['last_played_at'], game['id'], author, game['publish_date'])
   end
 
   def find_game(id)
