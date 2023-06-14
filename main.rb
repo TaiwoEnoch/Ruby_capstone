@@ -67,7 +67,7 @@ class Main
 
   def list_games
     puts 'Listing all games...'
-    game_list = GameList.new('./data/games.json', './data/authors.json')
+    game_list = GameList.new('./Data/games.json', './Data/authors.json')
     game_list.list_all_games
   end
 
@@ -81,7 +81,7 @@ class Main
 
   def list_authors
     puts 'Listing all authors...'
-    game_list = GameList.new('./data/games.json', './data/authors.json')
+    game_list = GameList.new('./Data/games.json', './Data/authors.json')
     game_list.list_all_authors
   end
 
@@ -103,7 +103,7 @@ class Main
 
   def add_game
     puts 'Adding a game...'
-    game_list = GameList.new('./data/games.json', './data/authors.json')
+    game_list = GameList.new('./Data/games.json', './Data/authors.json')
 
     game_list.add_game
   end
