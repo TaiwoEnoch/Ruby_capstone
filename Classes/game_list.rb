@@ -29,7 +29,11 @@ class GameList
       puts 'No games added'
     else
       games.each do |game|
-        puts "Multiplayer: #{game.multiplayer}, Last played at: #{game.last_played_at}"
+        puts "ID: #{game.id}"
+        puts "Publish Date: #{game.publish_date}"
+        puts "Multiplayer: #{game.multiplayer}"
+        puts "Last Played At: #{game.last_played_at}"
+        puts ''
       end
     end
     puts ''
@@ -37,11 +41,11 @@ class GameList
 
   def add_game
     multiplayer = prompt_multiplayer
-    print 'Last played at (YYYY-MM-DD): '
-    last_played_at = gets.chomp
+    last_played_at = prompt_date('Last played at (YYYY-MM-DD): ')
+    publish_date = prompt_date('Publish date (YYYY-MM-DD): ')
 
     author = select_author
-    game = Game.new(multiplayer, last_played_at, nil, author, nil)
+    game = Game.new(multiplayer, last_played_at, nil, author, publish_date)
     games << game
     puts 'Game added successfully'
     puts ''
@@ -134,6 +138,11 @@ class GameList
     end
   end
 
+  def prompt_date(message)
+    print message
+    gets.chomp
+  end
+
   def save
     games_data = games.map do |game|
       {
@@ -141,11 +150,7 @@ class GameList
         publish_date: game.publish_date,
         multiplayer: game.multiplayer,
         last_played_at: game.last_played_at,
-        label: game.label,
-        author: {
-          first_name: game.author.first_name,
-          last_name: game.author.last_name
-        }
+        label: game.label
       }
     end
 
@@ -161,27 +166,31 @@ class GameList
     return unless File.exist?(@games_file_path)
 
     game_store = JSON.parse(File.read(@games_file_path))
-    game_load = game_store.map do |game|
-      author_data = game['author']
-      if author_data.nil?
-        puts 'Author data missing for a game. Skipping game.'
-        next
-      end
-      author = find_author(author_data['first_name'], author_data['last_name'])
-      if author
-        existing_game = find_game(game['id'])
-        if existing_game
-          puts "Game with ID '#{game['id']}' already exists. Skipping game."
-          next
-        end
-        Game.new(game['multiplayer'], game['last_played_at'], game['id'], author, game['publish_date'])
-      else
-        puts "Author '#{author_data['first_name']} #{author_data['last_name']}' not found. Skipping game."
-      end
-    end
+    game_load = game_store.map { |game| create_game_from_json(game) }
     games.concat(game_load.compact) unless game_load.empty?
   rescue JSON::ParserError => e
     puts "Error reading games data: #{e.message}"
+  end
+
+  def create_game_from_json(game)
+    author_data = game['author']
+    if author_data.nil?
+      puts 'Author data missing for a game. Skipping game.'
+      return nil
+    end
+
+    author = find_author(author_data['first_name'], author_data['last_name'])
+    if author
+      existing_game = find_game(game['id'])
+      if existing_game
+        puts "Game with ID '#{game['id']}' already exists. Skipping game."
+        return nil
+      end
+      Game.new(game['multiplayer'], game['last_played_at'], game['id'], author, game['publish_date'])
+    else
+      puts "Author '#{author_data['first_name']} #{author_data['last_name']}' not found. Skipping game."
+      nil
+    end
   end
 
   def find_game(id)

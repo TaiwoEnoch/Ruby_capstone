@@ -7,7 +7,7 @@ describe Author do
   let(:genre) { 'Fiction' }
   let(:source) { 'Book' }
   let(:label) { 'Publisher' }
-  let(:publish_date) { Time.now - 20 }  # Example publish date, 20 days ago
+  let(:publish_date) { Time.now - 20 } # Example publish date, 20 days ago
   let(:item) { Item.new(genre, author, source, label, publish_date) }
 
 
@@ -35,9 +35,9 @@ describe Author do
     end
 
     it 'adds the item to the author\'s items array' do
-      expect {
+      expect do
         author.add_item(item)
-      }.to change { author.items.count }.by(1)
+      end.to change { author.items.count }.by(1)
     end
   end
 end
