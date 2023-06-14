@@ -47,5 +47,9 @@ class AddMovie
     File.open('Data/movies.json', 'a') do |file|
       file.puts(JSON.generate(movie_data))
     end
-  end  
+
+    File.open('Data/sources.json', 'a') do |file|
+        file.puts(JSON.generate(source: @movie.source))
+    end
+  end
 end

@@ -1,5 +1,6 @@
 require_relative './Modules/list_movie'
 require_relative './Modules/add_movie'
+require_relative './Modules/list_source'
 
 class Main
   def initialize
@@ -84,7 +85,8 @@ class Main
   end
 
   def list_sources
-    puts 'Listing all sources...'
+    source = ListSource.new
+    source.list_source
   end
 
   def add_book
