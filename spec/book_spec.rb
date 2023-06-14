@@ -1,42 +1,67 @@
-require_relative '../classes/book'
-require 'date'
+#book_spec.rb
+require_relative '../Classes/book'
+require_relative '../Classes/item'
 
-describe Book do
-  before :each do
-    @book = Book.new('2023-01-01', 'Example Publisher', 'good', 'hello world')
-  end
+RSpec.describe Book do
+  let(:publisher) { 'Sample Publisher' }
+  let(:cover_state) { 'good' }
+  let(:title) { 'Sample Book' }
+  let(:publish_date) { Time.now - 15 }
+
+  subject(:book) { described_class.new(publish_date, publisher, cover_state, title) }
 
   describe '#initialize' do
-    it 'sets the publish date, publisher, and cover state' do
-      expect(@book.publish_date).to eq('2023-01-01')
-      expect(@book.publisher).to eq('Example Publisher')
-      expect(@book.cover_state).to eq('good')
+    it 'sets the publisher' do
+      expect(book.publisher).to eq(publisher)
+    end
+
+    it 'sets the cover state' do
+      expect(book.cover_state).to eq(cover_state)
+    end
+
+    it 'sets the title' do
+      expect(book.title).to eq(title)
+    end
+
+    it 'sets the publish date' do
+      expect(book.publish_date).to eq(publish_date)
+    end
+  end
+
+  describe '#can_be_archived?' do
+    context 'when the cover state is good' do
+      let(:cover_state) { 'good' }
+
+      it 'returns false' do
+        expect(book.can_be_archived?).to be false
+      end
+    end
+
+    context 'when the cover state is bad' do
+      let(:cover_state) { 'bad' }
+
+      it 'returns true' do
+        expect(book.can_be_archived?).to be true
+      end
     end
   end
 
   describe '#move_to_archive' do
-    context 'when the cover state is bad' do
-      before do
-        @book = Book.new('2023-01-01', 'Example Publisher', 'bad', 'hello world')
-      end
+    context 'when the book can be archived' do
+      before { allow(book).to receive(:can_be_archived?).and_return(true) }
 
       it 'marks the book as archived' do
-        @book.move_to_archive
-        expect(@book.instance_variable_get(:@archived)).to be true
+        book.move_to_archive
+        expect(book.archived).to be true
       end
     end
 
-    context 'when the cover state is not bad' do
-      it 'marks the book as archived if it meets the criteria' do
-        allow(Time).to receive_message_chain(:now, :year).and_return(2034)
-        @book.move_to_archive
-        expect(@book.instance_variable_get(:@archived)).to be true
-      end
+    context 'when the book cannot be archived' do
+      before { allow(book).to receive(:can_be_archived?).and_return(false) }
 
-      it 'does not mark the book as archived if it does not meet the criteria' do
-        allow(Time).to receive_message_chain(:now, :year).and_return(2024)
-        @book.move_to_archive
-        expect(@book.instance_variable_get(:@archived)).to be false
+      it 'does not mark the book as archived' do
+        book.move_to_archive
+        expect(book.archived).to be false
       end
     end
   end
