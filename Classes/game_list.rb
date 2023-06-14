@@ -2,6 +2,7 @@ require_relative 'item'
 require_relative 'author'
 require_relative 'game'
 require 'json'
+require_relative 'author_op'
 
 class GameList
   attr_accessor :games, :authors
@@ -51,97 +52,11 @@ class GameList
     puts ''
 
     author.add_item(game)
-    save_authors
     save
   end
 
-  def select_author
-    if authors.empty?
-      puts 'No authors added. Creating a new author...'
-      author = create_author
-      authors << author
-      save_authors
-    else
-      puts 'Choose an option:'
-      puts '1. Select an existing author'
-      puts '2. Create a new author'
-      print 'Enter your choice: '
-      choice = gets.chomp.to_i
 
-      case choice
-      when 1
-        author = select_existing_author
-      when 2
-        author = create_author
-        authors << author
-        save_authors
-      else
-        puts 'Invalid choice. Creating a new author...'
-        author = create_author
-        authors << author
-        save_authors
-      end
-    end
-
-    author
-  end
-
-  def select_existing_author
-    unique_authors = authors.uniq { |author| "#{author.first_name} #{author.last_name}" }
-
-    if unique_authors.empty?
-      puts 'No authors available. Creating a new author...'
-      create_author
-    else
-      puts 'Select an author:'
-      unique_authors.each_with_index { |author, index| puts "#{index + 1}. #{author.first_name} #{author.last_name}" }
-      print 'Enter the number of the author: '
-      author_index = gets.chomp.to_i - 1
-
-      if author_index.between?(0, unique_authors.size - 1)
-        unique_authors[author_index]
-      else
-        puts 'Invalid author selection. Creating a new author...'
-        create_author
-      end
-    end
-  end
-
-  def save_authors
-    author_data = authors.map do |author|
-      {
-        first_name: author.first_name,
-        last_name: author.last_name
-      }
-    end
-
-    File.write(@authors_file_path, JSON.pretty_generate(author_data))
-  end
-
-  def create_author
-    print 'Enter author first name: '
-    first_name = gets.chomp
-    print 'Enter author last name: '
-    last_name = gets.chomp
-
-    Author.new(first_name, last_name)
-  end
-
-  def prompt_multiplayer
-    loop do
-      print 'Multiplayer (Enter t-True/f-False): '
-      input = gets.chomp.downcase
-      return true if input == 't'
-      return false if input == 'f'
-
-      puts 'Invalid input. Please enter either t or f.'
-    end
-  end
-
-  def prompt_date(message)
-    print message
-    gets.chomp
-  end
+  private
 
   def save
     games_data = games.map do |game|
@@ -154,9 +69,7 @@ class GameList
       }
     end
 
-    existing_data = []
-    existing_data = JSON.parse(File.read(@games_file_path)) if File.exist?(@games_file_path)
-
+    existing_data = File.exist?(@games_file_path) ? JSON.parse(File.read(@games_file_path)) : []
     new_data = existing_data + games_data
 
     File.write(@games_file_path, JSON.pretty_generate(new_data))
@@ -209,5 +122,26 @@ class GameList
     authors.concat(author_load) unless author_load.empty?
   rescue JSON::ParserError => e
     puts "Error reading authors data: #{e.message}"
+  end
+
+  def select_author
+    author_operations = AuthorOperations.new
+    author_operations.select_author(authors, @authors_file_path)
+  end
+
+  def prompt_multiplayer
+    loop do
+      print 'Multiplayer (Enter t-True/f-False): '
+      input = gets.chomp.downcase
+      return true if input == 't'
+      return false if input == 'f'
+
+      puts 'Invalid input. Please enter either t or f.'
+    end
+  end
+
+  def prompt_date(message)
+    print message
+    gets.chomp
   end
 end

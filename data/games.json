@@ -1,97 +1,30 @@
 [
   {
-    "id": 919,
-    "publish_date": null,
-    "multiplayer": true,
-    "last_played_at": "2020-12-23",
-    "label": null,
-    "author": {
-      "first_name": "Rishi",
-      "last_name": "Mishra"
-    }
-  },
-  {
-    "id": 243,
-    "publish_date": null,
+    "id": 220,
+    "publish_date": "1111-34-12",
     "multiplayer": false,
-    "last_played_at": "2020-04-07",
-    "label": null,
-    "author": {
-      "first_name": "Bruh",
-      "last_name": "What"
-    }
+    "last_played_at": "1111-23-23",
+    "label": null
   },
   {
-    "id": 227,
-    "publish_date": null,
+    "id": 481,
+    "publish_date": "1212-23-34",
     "multiplayer": true,
-    "last_played_at": "2003-12-21",
-    "label": null,
-    "author": {
-      "first_name": "Stephen",
-      "last_name": "King"
-    }
+    "last_played_at": "2222-56-23",
+    "label": null
   },
   {
-    "id": 702,
-    "publish_date": null,
-    "multiplayer": true,
-    "last_played_at": "2003-12-34",
-    "label": null,
-    "author": {
-      "first_name": "Rishi",
-      "last_name": "Mishra"
-    }
+    "id": 589,
+    "publish_date": "1212-34-45",
+    "multiplayer": false,
+    "last_played_at": "1111-22-55",
+    "label": null
   },
   {
-    "id": 169,
-    "publish_date": null,
+    "id": 531,
+    "publish_date": "1222-33-44",
     "multiplayer": true,
-    "last_played_at": "2004-12-35",
-    "label": null,
-    "author": {
-      "first_name": "Broski",
-      "last_name": "What"
-    }
-  },
-  {
-    "id": 601,
-    "publish_date": null,
-    "multiplayer": true,
-    "last_played_at": "2022-03-12",
-    "label": null,
-    "author": {
-      "first_name": "Rishi",
-      "last_name": "Mishra"
-    }
-  },
-  {
-    "id": 43,
-    "publish_date": null,
-    "multiplayer": true,
-    "last_played_at": "2021-23-12",
-    "label": null,
-    "author": {
-      "first_name": "Rishi",
-      "last_name": "Mishra"
-    }
-  },
-  {
-    "id": 361,
-    "publish_date": null,
-    "multiplayer": true,
-    "last_played_at": "2003-12-23",
-    "label": null,
-    "author": {
-      "first_name": "Stphen ",
-      "last_name": "KIng"
-    }
-  },
-  {
-    "id": 246,
-    "publish_date": "2004-12-23",
-    "multiplayer": true,
-    "last_played_at": "2004-12-23",
+    "last_played_at": "2323-23-23",
     "label": null
   }
 ]
