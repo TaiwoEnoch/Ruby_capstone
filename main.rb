@@ -1,3 +1,6 @@
+require_relative './Modules/list_movie'
+require_relative './Modules/add_movie'
+
 class Main
   def initialize
     puts '********-------------------------********'
@@ -60,8 +63,9 @@ class Main
   end
 
   def list_movies
-    puts 'Listing all movies...'
-  end
+    movie = ListMovie.new
+    movie.list_movies
+  end  
 
   def list_games
     puts 'Listing all games...'
@@ -92,7 +96,8 @@ class Main
   end
 
   def add_movie
-    puts 'Adding a movie...'
+    movie = AddMovie.new
+    movie.run
   end
 
   def add_game
