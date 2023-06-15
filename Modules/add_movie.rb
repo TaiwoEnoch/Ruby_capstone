@@ -16,6 +16,7 @@ class AddMovie
 
     print 'Silent (Enter t-True/f-False): '
     @movie.silent = gets.chomp.downcase
+    @movie.silent = @movie.silent.include?('t')
 
     print 'Source: '
     @movie.source = gets.chomp
