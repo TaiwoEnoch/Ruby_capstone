@@ -47,9 +47,21 @@ class AddMovie
     File.open('Data/movies.json', 'a') do |file|
       file.puts(JSON.generate(movie_data))
     end
-
-    File.open('Data/sources.json', 'a') do |file|
-        file.puts(JSON.generate(source: @movie.source))
+  
+    sources = []
+    if File.exist?('Data/sources.json') && !File.zero?('Data/sources.json')
+      begin
+        sources = JSON.parse(File.read('Data/sources.json'))
+      rescue JSON::ParserError => e
+        puts "Error parsing sources.json: #{e.message}"
+      end
     end
-  end
+    
+    unless sources.any? { |src| src['source'] == @movie.source }
+      sources << { source: @movie.source }
+      File.open('Data/sources.json', 'w') do |file|
+        file.puts(JSON.generate(sources))
+      end
+    end
+  end  
 end
