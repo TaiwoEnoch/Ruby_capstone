@@ -2,10 +2,10 @@ require_relative 'item'
 require_relative 'source'
 
 class Movie < Item
-  attr_accessor :silent, :source
+  attr_accessor :silent, :publish_date
 
-  def initialize(silent, source)
-    super(nil, nil, nil, nil, source)
+  def initialize(silent, publish_date)
+    super(nil, nil, nil, nil, publish_date)
     @silent = silent
   end
 
