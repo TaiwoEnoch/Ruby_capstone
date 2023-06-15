@@ -1,4 +1,4 @@
-#label_spec.rb
+# label_spec.rb
 require_relative '../Classes/label'
 require_relative '../Classes/item'
 
