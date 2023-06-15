@@ -1,3 +1,5 @@
+require_relative './Classes/list_all_book_label'
+
 class Main
   def initialize
     puts '********-------------------------********'
@@ -71,7 +73,8 @@ class Main
   end
 
   def list_labels
-    puts 'Listing all labels...'
+    stored_label = BookLabelAddAndShow.new
+    stored_label.store_label
   end
 
   def list_authors
@@ -83,7 +86,8 @@ class Main
   end
 
   def add_book
-    puts 'Adding a book...'
+    store_book = BookLabelAddAndShow.new
+    store_book.add_book
   end
 
   def add_music_album

@@ -1,15 +1,16 @@
 require_relative 'book'
 require_relative 'label'
+require_relative 'item'
 require 'json'
 require 'date'
 require 'fileutils'
 
 class BookLabelAddAndShow
-  attr_accessor :books, :labels
+  attr_accessor :book, :label
 
   def initialize
-    @books = []
-    @labels = []
+    @book = []
+    @label = []
   end
 
   def add_book
@@ -26,8 +27,8 @@ class BookLabelAddAndShow
 
     book = Book.new(publish_date, publisher, cover_state, title)
     label = Label.new(title, color)
-    @books.push(book)
-    @labels.push(label)
+    @book.push(book)
+    @label.push(label)
     display_message('Book added successfully.')
     store_book(book)
     store_label(label)
@@ -52,21 +53,21 @@ class BookLabelAddAndShow
       cover_state: book.cover_state
     }
 
-    stored_book = load_json('data/books.json')
+    stored_book = load_json('Data/stored_book.json')
     stored_book << hash
-    write_json('data/books.json', stored_book)
+    write_json('Data/stored_book.json', stored_book)
   end
 
-  def store_label(label)
+  def store_label
     hash = {
-      id: label.id,
-      title: label.title,
-      color: label.color
+      id: @stored_label.id,
+      title: @stored_label.title,
+      color: @stored_label.color
     }
 
-    stored_label = load_json('data/labels.json')
+    stored_label = load_json('Data/stored_label.json')
     stored_label << hash
-    write_json('data/labels.json', stored_label)
+    write_json('Data/stored_label.json', stored_label)
   end
 
   def load_json(file_path)
@@ -76,12 +77,12 @@ class BookLabelAddAndShow
   end
 
   def write_json(file_path, data)
-    FileUtils.mkdir_p('data')
+    FileUtils.mkdir_p('Data')
     File.write(file_path, data.to_json)
   end
 
   def list_all_books
-    @books = load_json('data/books.json')
+    @books = load_json('Data/book.json')
     @books.each do |book|
       display_message("Book Title: #{book['title']}, Publisher: #{book['publisher']},
         Publish Date: #{book['publish_date']}, Cover State: #{book['cover_state']}")
@@ -89,7 +90,7 @@ class BookLabelAddAndShow
   end
 
   def list_all_labels
-    @labels = load_json('data/labels.json')
+    @labels = load_json('/Data/labels.json')
     @labels.each do |label|
       display_message("Label: #{label['title']}, Color: #{label['color']}")
     end
