@@ -10,7 +10,6 @@ describe Author do
   let(:publish_date) { Time.now - 20 } # Example publish date, 20 days ago
   let(:item) { Item.new(genre, author, source, label, publish_date) }
 
-
   describe '#initialize' do
     it 'sets the first_name and last_name' do
       expect(author.first_name).to eq(first_name)

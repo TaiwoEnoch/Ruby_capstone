@@ -28,7 +28,6 @@ RSpec.describe GameList do
     end
   end
 
-
   describe '#prompt_multiplayer' do
     it 'returns true when input is "t"' do
       allow(game_list).to receive(:gets).and_return("t\n")

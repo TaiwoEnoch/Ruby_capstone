@@ -40,7 +40,6 @@ class AuthorOperations
     author
   end
 
-
   private
 
   def save_authors(authors, authors_file_path)

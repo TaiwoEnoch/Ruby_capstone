@@ -55,7 +55,6 @@ class GameList
     save
   end
 
-
   private
 
   def save
