@@ -66,7 +66,7 @@ class Main
   def list_movies
     movie = ListMovie.new
     movie.list_movies
-  end  
+  end
 
   def list_games
     puts 'Listing all games...'
