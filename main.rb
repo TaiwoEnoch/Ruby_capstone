@@ -53,7 +53,8 @@ class Main
   end
 
   def list_books
-    puts 'Listing all books...'
+    stored_book = BookLabelAddAndShow.new
+    stored_book.list_all_books
   end
 
   def list_music_albums
@@ -74,7 +75,7 @@ class Main
 
   def list_labels
     stored_label = BookLabelAddAndShow.new
-    stored_label.store_label
+    stored_label.list_all_labels
   end
 
   def list_authors

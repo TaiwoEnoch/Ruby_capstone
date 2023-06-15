@@ -58,11 +58,11 @@ class BookLabelAddAndShow
     write_json('Data/stored_book.json', stored_book)
   end
 
-  def store_label
+  def store_label(label)
     hash = {
-      id: @stored_label.id,
-      title: @stored_label.title,
-      color: @stored_label.color
+      id: label.id,
+      title: label.title,
+      color: label.color
     }
 
     stored_label = load_json('Data/stored_label.json')
@@ -82,17 +82,25 @@ class BookLabelAddAndShow
   end
 
   def list_all_books
-    @books = load_json('Data/book.json')
-    @books.each do |book|
-      display_message("Book Title: #{book['title']}, Publisher: #{book['publisher']},
-        Publish Date: #{book['publish_date']}, Cover State: #{book['cover_state']}")
+    @books = load_json('Data/stored_book.json')
+    if @books.empty?
+      display_message('No books found.')
+    else
+      @books.each do |book|
+        display_message("Book Title: #{book['title']}, Publisher: #{book['publisher']},
+          Publish Date: #{book['publish_date']}, Cover State: #{book['cover_state']}")
+      end
     end
   end
 
   def list_all_labels
-    @labels = load_json('/Data/labels.json')
-    @labels.each do |label|
-      display_message("Label: #{label['title']}, Color: #{label['color']}")
+    @labels = load_json('Data/stored_label.json')
+    if @labels.empty?
+      display_message('No labels found.')
+    else
+      @labels.each do |label|
+        display_message("Label: #{label['title']}, Color: #{label['color']}")
+      end
     end
   end
 
