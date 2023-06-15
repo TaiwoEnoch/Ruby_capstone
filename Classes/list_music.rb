@@ -67,15 +67,15 @@ class MusicList
     end
     genres_data = @genres.map { |genre| { name: genre.name } }
 
-    File.write('data/music.json', JSON.pretty_generate(albums_data))
-    File.write('data/genre.json', JSON.pretty_generate(genres_data))
+    File.write('Data/music.json', JSON.pretty_generate(albums_data))
+    File.write('Data/genre.json', JSON.pretty_generate(genres_data))
   end
 
   def recover_data
-    return unless File.exist?('data/music.json')
+    return unless File.exist?('Data/music.json')
 
     album_store = begin
-      JSON.parse(File.read('data/music.json'))
+      JSON.parse(File.read('Data/music.json'))
     rescue StandardError
       []
     end
@@ -84,10 +84,10 @@ class MusicList
   end
 
   def recover_genre
-    return unless File.exist?('data/genre.json')
+    return unless File.exist?('Data/genre.json')
 
     genre_store = begin
-      JSON.parse(File.read('data/genre.json'))
+      JSON.parse(File.read('Data/genre.json'))
     rescue StandardError
       []
     end
