@@ -1,0 +1,22 @@
+[
+  {
+    "id": 490,
+    "publish_date": "2000-03-24",
+    "on_spotify": true
+  },
+  {
+    "id": 367,
+    "publish_date": "2007-08-22",
+    "on_spotify": false
+  },
+  {
+    "id": 161,
+    "publish_date": "2222-12-23",
+    "on_spotify": true
+  },
+  {
+    "id": 60,
+    "publish_date": "1234",
+    "on_spotify": true
+  }
+]

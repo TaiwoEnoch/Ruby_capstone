@@ -1,6 +1,9 @@
 require_relative './Modules/list_movie'
 require_relative './Modules/add_movie'
 require_relative './Modules/list_source'
+require_relative 'Classes/game_list'
+require_relative './Classes/list_music'
+require_relative './Classes/list_all_book_label'
 
 class Main
   def initialize
@@ -31,10 +34,7 @@ class Main
     loop do
       select_option
       choice = gets.chomp.to_i
-
       handle_choice(choice)
-
-
       puts
     end
   end
@@ -56,11 +56,13 @@ class Main
   end
 
   def list_books
-    puts 'Listing all books...'
+    stored_book = BookLabelAddAndShow.new
+    stored_book.list_all_books
   end
 
   def list_music_albums
-    puts 'Listing all music albums...'
+    music_list = MusicList.new
+    music_list.list_all_music_albums
   end
 
   def list_movies
@@ -70,18 +72,24 @@ class Main
 
   def list_games
     puts 'Listing all games...'
+    game_list = GameList.new('./Data/games.json', './Data/authors.json')
+    game_list.list_all_games
   end
 
   def list_genres
-    puts 'Listing all genres...'
+    music_list = MusicList.new
+    music_list.list_all_genre
   end
 
   def list_labels
-    puts 'Listing all labels...'
+    stored_label = BookLabelAddAndShow.new
+    stored_label.list_all_labels
   end
 
   def list_authors
     puts 'Listing all authors...'
+    game_list = GameList.new('./Data/games.json', './Data/authors.json')
+    game_list.list_all_authors
   end
 
   def list_sources
@@ -90,11 +98,13 @@ class Main
   end
 
   def add_book
-    puts 'Adding a book...'
+    store_book = BookLabelAddAndShow.new
+    store_book.add_book
   end
 
   def add_music_album
-    puts 'Adding a music album...'
+    music_list = MusicList.new
+    music_list.add_music_album
   end
 
   def add_movie
@@ -104,6 +114,9 @@ class Main
 
   def add_game
     puts 'Adding a game...'
+    game_list = GameList.new('./Data/games.json', './Data/authors.json')
+
+    game_list.add_game
   end
 
   def exit_app
