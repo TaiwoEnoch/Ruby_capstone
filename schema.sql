@@ -23,3 +23,21 @@ CREATE TABLE book (
   book_cover VARCHAR(100) NOT NULL,
   FOREIGN KEY (item_id) REFERENCES item (id)
 );
+
+CREATE TABLE music_album (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  on_spotify BOOLEAN NOT NULL,
+  author_id INT NOT NULL,
+  is_archived BOOLEAN NOT NULL,
+  genre_id INT NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES author (id),
+  FOREIGN KEY (genre_id) REFERENCES genre (id)
+);
+
+CREATE TABLE genre (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  item_id INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  FOREIGN KEY (ITEM_ID) REFERENCES ITEM(ID)
+);
