@@ -1,8 +1,11 @@
 require_relative '../Modules/list_source'
 
 describe ListSource do
-    it 'Lists all sources' do
-        source = ListSource.new
-        expect(source.list_sources).to be_a(ListSource)
+    describe '#list_source' do
+        listSource = ListSource.new
+        it 'prints the details of each source' do
+            source_data = {"source":"Netflix"}
+            expect { listSource.display_source(source_data) }.to output("Source: Netflix\n").to_stdout
+        end
     end
 end

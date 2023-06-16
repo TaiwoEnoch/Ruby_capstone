@@ -1,16 +1,19 @@
 require_relative '../Modules/list_movie'
-require_relative '../Modules/add_movie'
+require_relative '../Classes/movie'
 
-describe AddMovie do
-    it 'Creates a new Movie' do
-        movie = AddMovie.new
-        expect(movie).to be_a(AddMovie)
-    end
+describe Movie do
+  movie = Movie.new('2020-01-01', 't')
+  it 'Adds a movie' do
+    expect(movie).to be_a(Movie)
+  end
 end
 
 describe ListMovie do
-    it 'Lists all movies' do
-        movie = ListMovie.new
-        expect(movie.list_movies).to be_a(ListMovie)
+  describe '#list_movies' do
+    listMovie = ListMovie.new
+    it 'prints the details of each movie' do
+      movies_data = {"publish_date":"2022-01-01","silent":true,"source":"Netflix"}
+      expect { listMovie.display_movies(movies_data) }.to output("Publish Date: 2022-01-01, Silent: true, Source: Netflix\n").to_stdout
     end
+  end
 end
