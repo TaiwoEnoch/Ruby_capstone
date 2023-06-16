@@ -63,6 +63,18 @@ CREATE TABLE game (
   foreign key (author_id) references author (id)
 );
 
+CREATE TABLE source (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  item_id INT NOT NULL,
+  FOREIGN KEY (item_id) REFERENCES item (id)
+)
+
+CREATE TABLE movies (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  silent BOOLEAN NOT NULL
+);
+
 -- CREATING INDEXES FOR BETTER PERFORMANCE
 CREATE INDEX item_genre_id_idx ON item (genre_id);
 CREATE INDEX item_author_id_idx ON item (author_id);
@@ -73,3 +85,4 @@ CREATE INDEX music_album_genre_id_idx ON music_album (genre_id);
 CREATE INDEX game_author_id_idx ON game (author_id);
 CREATE INDEX game_genre_id_idx ON game (genre_id);
 CREATE INDEX game_label_id_idx ON game (label_id);
+CREATE INDEX source_item_id_idx ON source (item_id);
