@@ -1,3 +1,6 @@
+require_relative './Modules/list_movie'
+require_relative './Modules/add_movie'
+require_relative './Modules/list_source'
 require_relative 'Classes/game_list'
 require_relative './Classes/list_music'
 require_relative './Classes/list_all_book_label'
@@ -63,7 +66,8 @@ class Main
   end
 
   def list_movies
-    puts 'Listing all movies...'
+    movie = ListMovie.new
+    movie.list_movies
   end
 
   def list_games
@@ -89,7 +93,8 @@ class Main
   end
 
   def list_sources
-    puts 'Listing all sources...'
+    source = ListSource.new
+    source.list_source
   end
 
   def add_book
@@ -103,7 +108,8 @@ class Main
   end
 
   def add_movie
-    puts 'Adding a movie...'
+    movie = AddMovie.new
+    movie.run
   end
 
   def add_game
