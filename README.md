@@ -89,6 +89,12 @@ For more information on the importance of a professional README for your reposit
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Video Presentation -->
+
+### Video Documentation <a name="key-features"></a>
+
+<a href="https://drive.google.com/file/d/1q2BNnTxmhEjLUvHV4DsCxD33QNGrgjiw/view?usp=drive_link">View Presentation</a>
+
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
@@ -136,14 +142,14 @@ rspec
 👤 **Enoch Taiwo**
 
 - GitHub: [@githubhandle](https://github.com/TaiwoEnoch)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- Twitter: [@twitterhandle](https://twitter.com/taiwoenoch4)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/taiwo01/)
 
 👤 **Rishi Mishra**
 
 - GitHub: [@githubhandle](https://github.com/Rishi-Mishra0704)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- Twitter: [@twitterhandle](https://twitter.com/RishiMi31357764)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/rrmishra/)
 
 👤 **Matee Safi**
 
@@ -153,9 +159,9 @@ rspec
 
 👤 **Ritika Rawat**
 
-- GitHub: [@githubhandle](https://github.com/ritikarawat220)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [ritikarawat220](https://github.com/ritikarawat220)
+- Twitter: [@ritikarawat22](https://twitter.com/Ritikarawat22)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/rawatritika/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
